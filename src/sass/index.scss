@@ -30,15 +30,17 @@ input{
 }
 
 .gallery{
+    max-width: 1600px;
     padding-left: 15px;
     padding-right: 15px;
+
     display: flex;
     flex-wrap: wrap;
     }
 
 img{
     display: block;
-    height: 250px;
+    height: 75%;
     width: 100%;
 }
 
@@ -56,9 +58,9 @@ img{
     text-align: center;
     margin: 5px;
     flex-basis: calc((100% - 60px) / 4);
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 5px;
     box-shadow: 10px 5px 5px gray;
+    background-color: antiquewhite;
 }
 
 .load-more{
