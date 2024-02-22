@@ -30,13 +30,11 @@ input{
 }
 
 .gallery{
-    max-width: 1600px;
     padding-left: 15px;
     padding-right: 15px;
-
     display: flex;
     flex-wrap: wrap;
-    }
+}
 
 img{
     display: block;
