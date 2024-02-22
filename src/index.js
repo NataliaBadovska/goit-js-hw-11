@@ -29,12 +29,16 @@ async function onSearch(evt) {
     return check;
 }
 
- function answerCheck(galleryCard) {
+function answerCheck(galleryCard) {
+    let restOfCollection = galleryCard.totalHits - newApiService.per_page;
+    restOfCollection -= newApiService.per_page;
+
     if (galleryCard.total === 0 || newApiService.searchQuery === '') {
         Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.");
 
-    } else {
-        updateMarkup(galleryCard)
+    }else {
+        updateMarkup(galleryCard);
+        btnLoadMore.style.visibility = 'visible';
     }
 
     if (galleryCard.totalHits < newApiService.per_page) {
@@ -60,10 +64,9 @@ function endOfCollection(galleryCard) {
     if (restOfCollection === 0 || restOfCollection < 0) {
          btnLoadMore.style.visibility = 'hidden';
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");  
-      
+        
     } 
-     gallery.insertAdjacentHTML('beforeend', galleryCard);
-    
+    updateMarkup(galleryCard);
 }
 
 function ofAllImages(galleryCard) {
@@ -83,11 +86,8 @@ const { height: cardHeight } = document
 }
 
 function updateMarkup(galleryCard) {
-
     renderMarkup(galleryCard);
     ofAllImages(galleryCard);
     scrolling();
     lightboxGallery.refresh();
-    btnLoadMore.style.visibility = 'visible';
 }
-
