@@ -14,11 +14,6 @@ export class NewApiService{
                 return gallery.data
             });
     }
-    //   async getCardsOnRequest() {
-    //       const cardRequest = await axios.get(`https://pixabay.com/api/?key=42241043-db77f91fab78549391ec20709&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.per_page}&page=${this.page}`);
-    //       await this.incrementPage(cardRequest);       
-    //       return (cardRequest );
-    // }
 
     incrementPage() {
         this.page += 1;

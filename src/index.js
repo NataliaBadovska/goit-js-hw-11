@@ -1,9 +1,13 @@
 import Notiflix from 'notiflix';
-import {NewApiService} from './api-service';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+import { NewApiService } from './api-service';
 import { renderMarkup } from "./murkup"
 
 const newApiService = new NewApiService();
 
+const lightboxGallery = new SimpleLightbox('.gallery a');
 const form = document.querySelector(".search-form");
 const btnLoadMore = document.querySelector(".load-more")
 const gallery = document.querySelector('.gallery');
@@ -21,8 +25,7 @@ async function onSearch(evt) {
     newApiService.searchQuery = form.elements.searchQuery.value;
     // newApiService.getCardsOnRequest().then(answerCheck).finally(form.reset());
     const response = await newApiService.getCardsOnRequest();
-    const check = await  answerCheck(response);
-    await form.reset();
+    const check = await answerCheck(response);
     return check;
 }
 
@@ -31,9 +34,7 @@ async function onSearch(evt) {
         Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.");
 
     } else {
-        renderMarkup(galleryCard);
-        ofAllImages(galleryCard);
-         btnLoadMore.style.visibility = 'visible';
+        updateMarkup(galleryCard)
     }
 
     if (galleryCard.totalHits < newApiService.per_page) {
@@ -61,10 +62,31 @@ function endOfCollection(galleryCard) {
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");  
       
     } 
-    renderMarkup(galleryCard);
+     gallery.insertAdjacentHTML('beforeend', galleryCard);
     
 }
 
 function ofAllImages(galleryCard) {
     Notiflix.Notify.info(`Hooray! We found ${galleryCard.totalHits} images.`);
+}
+
+
+function scrolling() {
+const { height: cardHeight } = document
+  .querySelector(".gallery")
+        .firstElementChild.getBoundingClientRect();
+    
+    window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
+}
+
+function updateMarkup(galleryCard) {
+
+    renderMarkup(galleryCard);
+    ofAllImages(galleryCard);
+    scrolling();
+    lightboxGallery.refresh();
+    btnLoadMore.style.visibility = 'visible';
 }
