@@ -35,7 +35,6 @@ function answerCheck(galleryCard) {
 
     if (galleryCard.total === 0 || newApiService.searchQuery === '') {
         Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.");
-
     }else {
         updateMarkup(galleryCard);
         btnLoadMore.style.visibility = 'visible';
