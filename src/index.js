@@ -90,3 +90,4 @@ function updateMarkup(galleryCard) {
     lightboxGallery.refresh();
     btnLoadMore.style.visibility = 'visible';
 }
+
